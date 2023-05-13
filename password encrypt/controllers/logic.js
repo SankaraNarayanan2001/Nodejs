@@ -18,8 +18,6 @@ exports.signUp= async (req, res) => {
         res.setHeader('Content-Type', 'text/plain');
         res.end('user already exists')
     })
-
-
 }
 
 exports.login= (req, res) => {
