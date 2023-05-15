@@ -35,7 +35,7 @@ exports.login=(req, res) => {
         bcrypt.compare(password, user.password, async function (err, result) {
             if (result) {
                 const token=await jwt.sign({
-                    result
+                    email
                    },'niadsbibaibfbisadbif',{ expiresIn: '10m' })
                 
                 res.json({token})
@@ -59,12 +59,12 @@ exports.login=(req, res) => {
 
 
 exports.delete=async (req,res)=>{
-    const item=await req.params['email'];
+    const id=await req.params['id'];
 
     try{
 const deleteRow=await user.destroy({
     where: {
-        email:item
+        id:id
     }
 });
 res.send(' deleted ');
@@ -72,5 +72,13 @@ res.send(' deleted ');
         res.send('Error deleteing row')
     }
 
+}
+
+exports.all=(req,res)=>{
+    user.findAll().then(data => {
+        res.send(data)
+    }).catch((error) => {
+        console.error('Failed to retrieve data : ', error);
+    });
 }
 

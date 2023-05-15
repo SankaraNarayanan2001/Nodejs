@@ -7,8 +7,8 @@ router.post("/signup",controutes.signup);
 
 router.get("/login",controutes.login)
 
-// router.put("/update",controutes.update)
+router.delete("/delete/:id",controutes.delete);
 
-router.delete("/delete/:email",controutes.delete);
+router.get('/all',controutes.all)
 
 module.exports=router;
