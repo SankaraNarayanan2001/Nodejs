@@ -1,28 +1,15 @@
-const { user }=require('../Module/user');
+// const { user }=require('../Module/user');
 const sequelize=require("sequelize")
+const multer=require('multer');
+const express=require('express');
 
+const upload=multer({dest:'upload/'});
 
+exports.update= upload.single('file'),async (req,res)=>{
+  const email= await req.pramas.email;
 
-exports.update= async (req,res)=>{
-    const email=req.params.email;
-    const password=req.params.password;
+  const file=await req.file;
 
-    await user.update(password, {
-        where: {
-          email
-        }
-      }).then((data)=>{
-        res.send("updated");
-      })
+  res.send("success");
 }
 
-// async(req,res)=>{
-//     const username=req.params.username;
-//     const password=req.body.password;
-
-//     let update=await usermodule.updatenewuser(username,password)
-//     if(update)
-//     res.send('updated successfully')
-//     else
-//     res.send('Failed to update')
-// }

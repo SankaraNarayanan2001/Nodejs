@@ -58,12 +58,19 @@ exports.login=(req, res) => {
 
 
 
-exports.delete=(req,res)=>{
-    const item=req.params;
-user.destroy({
+exports.delete=async (req,res)=>{
+    const item=await req.params['email'];
+
+    try{
+const deleteRow=await user.destroy({
     where: {
         email:item
     }
-})
+});
+res.send(' deleted ');
+    }catch(error){
+        res.send('Error deleteing row')
+    }
 
 }
+
