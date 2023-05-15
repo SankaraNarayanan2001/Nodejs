@@ -39,6 +39,6 @@ sequelize.authenticate()
         console.log('err')
     })
 
-sequelize.sync({ alter: true });
+sequelize.sync({ force: true });
 
 module.exports=user;

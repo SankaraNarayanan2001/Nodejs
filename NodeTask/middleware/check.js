@@ -19,6 +19,7 @@
         const user = await jwt.verify(token, "niadsbibaibfbisadbif")
         req.user = user.id;
         next();
+        // console.log("hello")
     } catch (error) {
         res.status(400).json({
             errors: [
