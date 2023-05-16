@@ -1,14 +1,14 @@
-const router=require('express').Router();
+const router = require('express').Router();
 
 
-const controutes=require('../Controllers/controutes')
+const controutes = require('../Controllers/controutes')
 
-router.post("/signup",controutes.signup);
+router.post("/signup", controutes.signup);
 
-router.get("/login",controutes.login)
+router.get("/login", controutes.login)
 
-router.delete("/delete/:id",controutes.delete);
+router.delete("/delete/:id", controutes.delete);
 
-router.get('/all',controutes.all)
+router.get('/all', controutes.all)
 
-module.exports=router;
+module.exports = router;

@@ -1,11 +1,12 @@
-const jwt=require('jsonwebtoken');
-const bcrypt=require('bcrypt');
-// const check=require('../middleware/check')
-const user=require('../Module/user')
-const express=require("express")
+const jwt = require('jsonwebtoken');
+
+const bcrypt = require('bcrypt');
+
+const user = require('../Module/user')
 
 
-exports.signup=async (req, res) => {
+
+exports.signup = async (req, res) => {
     const { email, password } = req.body;
 
 
@@ -24,7 +25,7 @@ exports.signup=async (req, res) => {
     })
 }
 
-exports.login=(req, res) => {
+exports.login = (req, res) => {
     const { email, password } = req.body;
 
     user.findOne({
@@ -34,11 +35,11 @@ exports.login=(req, res) => {
     }).then((user) => {
         bcrypt.compare(password, user.password, async function (err, result) {
             if (result) {
-                const token=await jwt.sign({
+                const token = await jwt.sign({
                     email
-                   },'niadsbibaibfbisadbif',{ expiresIn: '10m' })
-                
-                res.json({token})
+                }, 'niadsbibaibfbisadbif', { expiresIn: '10m' })
+
+                res.json({ token })
             } else {
                 res.setHeader('Content-Type', 'text/plain');
                 res.end('Login fail.');
@@ -50,31 +51,23 @@ exports.login=(req, res) => {
     });
 }
 
-// exports.update=async (req,res)=>{
-//     console.log(req.user);
-    
-// }
+exports.delete = async (req, res) => {
+    const id = await req.params['id'];
 
-
-
-
-exports.delete=async (req,res)=>{
-    const id=await req.params['id'];
-
-    try{
-const deleteRow=await user.destroy({
-    where: {
-        id:id
-    }
-});
-res.send(' deleted ');
-    }catch(error){
+    try {
+        const deleteRow = await user.destroy({
+            where: {
+                id: id
+            }
+        });
+        res.send(' deleted ');
+    } catch (error) {
         res.send('Error deleteing row')
     }
 
 }
 
-exports.all=(req,res)=>{
+exports.all = (req, res) => {
     user.findAll().then(data => {
         res.send(data)
     }).catch((error) => {

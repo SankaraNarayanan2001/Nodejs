@@ -1,35 +1,29 @@
-const { user }=require('../Module/user');
-const sequelize=require("sequelize")
+const user = require('../Module/user');
 
-const express=require('express');
-const path=require('path');
+exports.change = async function (req, res) {
 
+  const userfile = req.file;
+  const userid = req.params['id'];
 
+  const findval = await user.findByPk(userid)
 
- exports.change=  async function (req, res){
- 
-      const file=req.file;
-      const id=req.params.id;
-
-
-       if(file){
-  
-     
-    
-  
-      res.status(200).json({ message: 'Image uploaded successfully.' });
+  if (!findval) {
+    return res.send("user not found")
+  }
+  else {
+    if (userfile) {
+      await user.update({ image: userfile.filename }, { where: { id: userid } })
+      res.send("user updated successfully ☺☻♥")
     }
-      
-     else{
-     
-       res.status(500).json({ error: 'Failed to upload image.' });
-     }
-      
+    else {
+      res.send("please upload image")
     }
+  }
 
-    
-  
+}
 
-     
-      
-     
+
+
+
+
+
